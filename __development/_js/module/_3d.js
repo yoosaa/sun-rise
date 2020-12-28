@@ -4,14 +4,12 @@
 import * as THREE from 'three/build/three.module';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { Water } from 'three/examples/jsm/objects/Water';
+import { Sky } from 'three/examples/jsm/objects/Sky';
 
 
 
-let scene,camera,renderer,water;
+let scene,camera,renderer,water,sky,sun;
 let orbitControls;
-
-//PlaneBufferGeometry
-const waterGeometry = new THREE.PlaneBufferGeometry(1000,1000);
 
 
 export function sunrise(){
@@ -23,6 +21,8 @@ export function sunrise(){
     renderer = new THREE.WebGLRenderer({antialias:true});
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth,window.innerHeight);
+    //PlaneBufferGeometry
+    const waterGeometry = new THREE.PlaneBufferGeometry(10000,10000);
     //Water
     water = new Water(
         waterGeometry,
@@ -33,15 +33,60 @@ export function sunrise(){
                 texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
             } ),
             alpha: 1.0,
-            waterColor: 0x3e89ce,
+            sunDirection: new THREE.Vector3(),
+            sunColor: 0xffffff,
+            waterColor: 0x001e0f,
             distortionScale: 3.7,
             fog:scene.fog !== undefined
         }
     );
+    // sky
+    const sky = new Sky();
+    sky.scale.setScalar(450000);
+    scene.add(sky);
+    // sky settings
+    const sky_uniforms = sky.material.uniforms;
+    sky_uniforms['turbidity'].value = 10;
+    sky_uniforms['rayleigh'].value = 2;
+    sky_uniforms['mieCoefficient'].value = 0.005;
+    sky_uniforms['mieDirectionalG'].value = 0.8;
+
+
+    // sun
+    sun = new THREE.Vector3();
+
+    const pmremGenerator = new THREE.PMREMGenerator( renderer );
+    const parameters = {
+        inclination: 0.49,
+        azimuth: 0.205
+    };
+
+    function updateSun() {
+
+        const theta = Math.PI * ( parameters.inclination - 0.5 );
+        const phi = 2 * Math.PI * ( parameters.azimuth - 0.5 );
+
+        sun.x = Math.cos( phi );
+        sun.y = Math.sin( phi ) * Math.sin( theta );
+        sun.z = Math.sin( phi ) * Math.cos( theta );
+
+        sky.material.uniforms[ 'sunPosition' ].value.copy( sun );
+        water.material.uniforms[ 'sunDirection' ].value.copy( sun ).normalize();
+
+        scene.environment = pmremGenerator.fromScene( sky ).texture;
+
+    }
+    updateSun();
+
 
     //OrbitControls
     document.addEventListener('touchmove',function(e){e.preventDefault();},{passive: false});
     const orbitControls = new OrbitControls(camera,renderer.domElement);
+    orbitControls.maxPolarAngle = Math.PI * 0.495;
+    orbitControls.target.set(0, 10, 0);
+    orbitControls.minDistance = 40.0;
+    orbitControls.maxDistance = 200.0;
+    orbitControls.update();
 
     //canvasを作成
     const container = document.querySelector('#canvas__body');
@@ -49,8 +94,8 @@ export function sunrise(){
 
 
     //シーンに追加
-    scene.add(water);
     water.rotation.x = - Math.PI / 2;
+    scene.add(water);
 
 
     //ウィンドウのリサイズに対応
@@ -60,7 +105,7 @@ export function sunrise(){
         renderer.setSize(window.innerWidth,window.innerHeight);
     },false);
 
-    threeWorld();
+    // threeWorld();
     setLight();
     rendering(water);
 }
