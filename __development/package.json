@@ -18,14 +18,14 @@
   },
   "homepage": "https://github.com/yoosaa/sun-rise#readme",
   "devDependencies": {
-    "webpack": "^5.10.0",
-    "webpack-cli": "^4.2.0",
-    "@babel/core": "^7.12.9",
+    "webpack": "^5.11.1",
+    "webpack-cli": "^4.3.0",
+    "@babel/core": "^7.12.10",
     "babel-loader": "^8.2.2",
-    "@babel/preset-env": "^7.12.7"
+    "@babel/preset-env": "^7.12.11"
   },
   "dependencies": {
-    "intersection-observer": "^0.11.0",
+    "intersection-observer": "^0.12.0",
     "smoothscroll-polyfill": "^0.4.4",
     "three": "*"
   }
