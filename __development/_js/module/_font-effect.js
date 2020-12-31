@@ -22,7 +22,7 @@ export function disp() {
 
             $(".display_" + i).animate({
                 "opacity": 1
-            }, i * 2000);
+            }, (i + 1) * 2000);
 
         }
 
