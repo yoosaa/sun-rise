@@ -24,7 +24,7 @@ $breakpoints: (
       @content;
     }
   }
-  
+
 #akeome {
     font-family: "解ミン 宙 B";
     position: absolute;
@@ -34,15 +34,8 @@ $breakpoints: (
     writing-mode: vertical-rl;
     font-size: 500%;
     letter-spacing: 1rem;
-    text-shadow:
-    2px  2px 1px #00007f,
-    -2px  2px 1px #00007f,
-    2px -2px 1px #00007f,
-    -2px -2px 1px #00007f,
-    2px  0px 1px #00007f,
-    0px  2px 1px #00007f,
-    -2px  0px 1px #00007f,
-    0px -2px 1px #00007f; 
+    filter: drop-shadow(10px 10px 5px rgb(0, 0, 0));
+    
     @include media(md){
         top: 40px;
         left: 40px;
