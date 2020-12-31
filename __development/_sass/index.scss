@@ -12,6 +12,19 @@
     font-weight: bold;
 }
 
+$breakpoints: (
+  'sm': 'screen and (max-width: 599px)',
+  'md': 'screen and (min-width: 600px)',
+  'lg': 'screen and (max-width: 1000px)',
+  'xl': 'screen and (max-width: 1200px)',
+) !default;
+
+@mixin media($breakpoint: md) {
+    @media #{map-get($breakpoints, $breakpoint)} {
+      @content;
+    }
+  }
+
 $colors: ( title-01: #0366d6, back-01: #eaecef);
 $layout-width-inner: 1012px;
 $breakpoints: ( sp: "screen and (max-width: 599px)", tab: "screen and (max-width: #{$layout-width-inner - 1px})", pc: "screen and (min-width: #{$layout-width-inner})", );
@@ -24,12 +37,16 @@ $breakpoints: ( sp: "screen and (max-width: 599px)", tab: "screen and (max-width
 #akeome {
     font-family: "解ミン 宙 B";
     position: absolute;
-    top: 40px;
-    left: 40px;
+    top: 20px;
+    left: 20px;
     color: white;
     writing-mode: vertical-rl;
     font-size: 500%;
     letter-spacing: 1rem;
+    @include media(md){
+        top: 40px;
+        left: 40px;
+    }
     span[class*="display"] {
         opacity: 0;
     }
