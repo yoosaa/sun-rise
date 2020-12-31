@@ -469,14 +469,22 @@ template {
 #akeome {
   font-family: "解ミン 宙 B";
   position: absolute;
-  top: 40px;
-  left: 40px;
+  top: 20px;
+  left: 20px;
   color: white;
   -webkit-writing-mode: vertical-rl;
       -ms-writing-mode: tb-rl;
           writing-mode: vertical-rl;
   font-size: 500%;
   letter-spacing: 1rem;
+  text-shadow: 2px  2px 1px #00007f, -2px  2px 1px #00007f, 2px -2px 1px #00007f, -2px -2px 1px #00007f, 2px  0px 1px #00007f, 0px  2px 1px #00007f, -2px  0px 1px #00007f, 0px -2px 1px #00007f;
+}
+
+@media screen and (min-width: 600px) {
+  #akeome {
+    top: 40px;
+    left: 40px;
+  }
 }
 
 #akeome span[class*="display"] {
