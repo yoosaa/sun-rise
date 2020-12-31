@@ -34,7 +34,7 @@ $breakpoints: (
     writing-mode: vertical-rl;
     font-size: 500%;
     letter-spacing: 1rem;
-    filter: drop-shadow(10px 10px 5px rgb(0, 0, 0));
+    filter: drop-shadow(6px 6px 6px rgb(0, 0, 0));
     
     @include media(md){
         top: 40px;

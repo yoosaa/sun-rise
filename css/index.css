@@ -477,8 +477,8 @@ template {
           writing-mode: vertical-rl;
   font-size: 500%;
   letter-spacing: 1rem;
-  -webkit-filter: drop-shadow(10px 10px 5px black);
-          filter: drop-shadow(10px 10px 5px black);
+  -webkit-filter: drop-shadow(6px 6px 6px black);
+          filter: drop-shadow(6px 6px 6px black);
 }
 
 @media screen and (min-width: 600px) {
