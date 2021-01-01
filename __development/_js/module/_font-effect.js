@@ -1,6 +1,3 @@
-require('jquery');
-
-
 export function disp() {
 
     return new Promise((resolve, reject) => {
@@ -18,7 +15,7 @@ export function disp() {
         $elem.html(append_elem);
         console.log(append_elem);
 
-        for (let i = 0; i<text_array.length; i++){
+        for (let i = 0; i < text_array.length; i++) {
 
             $(".display_" + i).animate({
                 "opacity": 1
